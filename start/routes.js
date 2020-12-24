@@ -24,3 +24,6 @@ Route.get('/', () => {
 
 Route.post('/users', 'UserController.create')
 Route.post('/sessions', 'SessionController.create')
+Route.resource('annotations', 'AnnotationController')
+  .apiOnly()
+  .middleware('auth')

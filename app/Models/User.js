@@ -34,6 +34,18 @@ class User extends Model {
   tokens () {
     return this.hasMany('App/Models/Token')
   }
+
+  /**
+   * Relantionship with annotation, a user can have
+   * N annotations
+   *
+   * @method annotations
+   *
+   * @return {Objects}
+   */
+  annotations () {
+    return this.hasMany('App/Models/Annotation')
+  }
 }
 
 module.exports = User
