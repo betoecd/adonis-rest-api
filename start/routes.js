@@ -1,5 +1,7 @@
 'use strict'
 
+const SessionController = require('../app/Controllers/Http/SessionController')
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -21,3 +23,4 @@ Route.get('/', () => {
 })
 
 Route.post('/users', 'UserController.create')
+Route.post('/sessions', 'SessionController.create')
