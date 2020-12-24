@@ -15,7 +15,10 @@ class AnnotationController {
    * GET annotations
    */
   async index () {
-    const properties = Annotation.all()
+    const properties = Annotation
+      .query()
+      .with('images')
+      .fetch()
 
     return properties
   }
@@ -28,7 +31,16 @@ class AnnotationController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ auth, request, response }) {
+    const { id } = auth.user
+    const data = request.only([
+      'title',
+      'description'
+    ])
+
+    const annotation = await Annotation.create({ ...data, user_id: id })
+
+    return annotation
   }
 
   /**
@@ -52,6 +64,17 @@ class AnnotationController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const annotation = await Annotation.findOrFail(params.id)
+
+    const data = request.only([
+      'title',
+      'description'
+    ])
+
+    annotation.merge(data)
+    await annotation.save()
+
+    return annotation
   }
 
   /**
@@ -62,7 +85,14 @@ class AnnotationController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params, auth, response }) {
+    const annotation = await Annotation.findOrFail(params.id)
+
+    if (property.user_id != auth.user.id){
+      return response.status(401).send({ error: 'Not authorized' })
+    }
+
+    await annotation.delete()
   }
 }
 

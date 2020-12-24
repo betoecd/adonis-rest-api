@@ -11,7 +11,7 @@ class ImageSchema extends Schema {
         .integer('annotation_id')
         .unsigned()
         .references('id')
-        .inTable('annotation')
+        .inTable('annotations')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table.string('path').notNullable()
