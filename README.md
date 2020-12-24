@@ -21,6 +21,10 @@ or manually clone the repo and then run `npm install`.
 
 ### Migrations
 
+Attention: to run the migrations it is necessary to have
+postgres installed and set the relevant permissions
+in the .env file
+
 Run the following command to run startup migrations.
 
 ```js
