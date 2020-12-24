@@ -10,13 +10,13 @@
 const User = use("App/Models/User")
 
 class UserController {
-  async create ({ request }) {
-    const data = request.only(["username", "email", "password"])
+    async create ({ request }) {
+        const data = request.only(["username", "email", "password"])
 
-    const user = await User.create(data)
+        const user = await User.create(data)
 
-    return user
-  }
+        return user
+    }
 }
 
 module.exports = UserController
